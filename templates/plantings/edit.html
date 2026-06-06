@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}编辑播种 - 种养基地生产档案系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>编辑播种</h2>
+    <a href="/plantings" class="btn btn-outline">返回列表</a>
+</div>
+<div class="form-card">
+    <form method="post" action="/plantings/{{ planting.id }}">
+        <div class="form-group">
+            <label for="crop_name">作物名称</label>
+            <input type="text" id="crop_name" name="crop_name" required value="{{ planting.crop_name }}">
+        </div>
+        <div class="form-group">
+            <label for="variety">品种</label>
+            <input type="text" id="variety" name="variety" required value="{{ planting.variety }}">
+        </div>
+        <div class="form-group">
+            <label for="area">面积(亩)</label>
+            <input type="number" id="area" name="area" step="0.1" required value="{{ planting.area }}">
+        </div>
+        <div class="form-group">
+            <label for="planting_date">播种日期</label>
+            <input type="date" id="planting_date" name="planting_date" required value="{{ planting.planting_date }}">
+        </div>
+        <div class="form-group">
+            <label for="expected_harvest_date">预计收获日期</label>
+            <input type="date" id="expected_harvest_date" name="expected_harvest_date" value="{{ planting.expected_harvest_date | default(value='') }}">
+        </div>
+        <div class="form-group">
+            <label for="status">状态</label>
+            <select id="status" name="status">
+                <option value="growing" {% if planting.status == "growing" %}selected{% endif %}>生长中</option>
+                <option value="harvested" {% if planting.status == "harvested" %}selected{% endif %}>已收获</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="base_id">基地编号</label>
+            <input type="text" id="base_id" name="base_id" required value="{{ planting.base_id }}">
+        </div>
+        <button type="submit" class="btn btn-primary">保存修改</button>
+    </form>
+</div>
+{% endblock %}

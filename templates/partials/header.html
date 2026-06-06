@@ -1,0 +1,22 @@
+<header class="header">
+    <div class="header-inner">
+        <a href="/" class="logo">种养基地生产档案系统</a>
+        <nav class="nav">
+            {% if user %}
+            <a href="/dashboard">工作台</a>
+            <a href="/plantings">播种管理</a>
+            <a href="/chemicals">施肥用药</a>
+            <a href="/harvests">收成台账</a>
+            <a href="/traceability/list">溯源管理</a>
+            <span class="user-info">{{ user.real_name }}</span>
+            <form method="post" action="/logout" class="inline-form">
+                <button type="submit" class="btn btn-sm btn-outline">退出</button>
+            </form>
+            {% else %}
+            <a href="/traceability">溯源查询</a>
+            <a href="/login" class="btn btn-sm btn-primary">登录</a>
+            <a href="/register" class="btn btn-sm btn-outline">注册</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>

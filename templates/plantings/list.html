@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}播种管理 - 种养基地生产档案系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>播种管理</h2>
+    <a href="/plantings/new" class="btn btn-primary">新增播种</a>
+</div>
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>作物名称</th>
+            <th>品种</th>
+            <th>面积(亩)</th>
+            <th>播种日期</th>
+            <th>预计收获</th>
+            <th>状态</th>
+            <th>基地编号</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in plantings %}
+        <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.crop_name }}</td>
+            <td>{{ p.variety }}</td>
+            <td>{{ p.area }}</td>
+            <td>{{ p.planting_date }}</td>
+            <td>{{ p.expected_harvest_date | default(value="未设置") }}</td>
+            <td>
+                {% if p.status == "growing" %}
+                <span class="badge badge-growing">生长中</span>
+                {% elif p.status == "harvested" %}
+                <span class="badge badge-harvested">已收获</span>
+                {% else %}
+                <span class="badge">{{ p.status }}</span>
+                {% endif %}
+            </td>
+            <td>{{ p.base_id }}</td>
+            <td>
+                <a href="/plantings/{{ p.id }}" class="btn btn-sm btn-outline">查看</a>
+                <a href="/plantings/{{ p.id }}/edit" class="btn btn-sm btn-outline">编辑</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

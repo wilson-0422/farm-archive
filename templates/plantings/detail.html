@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}播种详情 - 种养基地生产档案系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>播种详情</h2>
+    <a href="/plantings" class="btn btn-outline">返回列表</a>
+</div>
+<div class="detail-card">
+    <div class="detail-row">
+        <span class="detail-label">编号</span>
+        <span class="detail-value">{{ planting.id }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">作物名称</span>
+        <span class="detail-value">{{ planting.crop_name }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">品种</span>
+        <span class="detail-value">{{ planting.variety }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">面积</span>
+        <span class="detail-value">{{ planting.area }} 亩</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">播种日期</span>
+        <span class="detail-value">{{ planting.planting_date }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">预计收获日期</span>
+        <span class="detail-value">{{ planting.expected_harvest_date | default(value="未设置") }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">状态</span>
+        <span class="detail-value">
+            {% if planting.status == "growing" %}生长中
+            {% elif planting.status == "harvested" %}已收获
+            {% else %}{{ planting.status }}{% endif %}
+        </span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">基地编号</span>
+        <span class="detail-value">{{ planting.base_id }}</span>
+    </div>
+</div>
+
+<div class="section">
+    <h3>施肥用药记录</h3>
+    {% if chemicals %}
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>类型</th>
+                <th>名称</th>
+                <th>用量</th>
+                <th>施用日期</th>
+                <th>操作人</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in chemicals %}
+            <tr>
+                <td>
+                    {% if c.chem_type == "fertilizer" %}肥料
+                    {% else %}农药{% endif %}
+                </td>
+                <td>{{ c.name }}</td>
+                <td>{{ c.dosage }} {{ c.unit }}</td>
+                <td>{{ c.application_date }}</td>
+                <td>{{ c.operator }}</td>
+                <td><a href="/chemicals/{{ c.id }}" class="btn btn-sm btn-outline">查看</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty-text">暂无施肥用药记录</p>
+    {% endif %}
+</div>
+
+<div class="section">
+    <h3>收成记录</h3>
+    {% if harvests %}
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>收获日期</th>
+                <th>产量</th>
+                <th>品质等级</th>
+                <th>买家</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for h in harvests %}
+            <tr>
+                <td>{{ h.harvest_date }}</td>
+                <td>{{ h.quantity }} {{ h.unit }}</td>
+                <td>{{ h.quality_grade }}</td>
+                <td>{{ h.buyer | default(value="未填写") }}</td>
+                <td><a href="/harvests/{{ h.id }}" class="btn btn-sm btn-outline">查看</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty-text">暂无收成记录</p>
+    {% endif %}
+</div>
+{% endblock %}

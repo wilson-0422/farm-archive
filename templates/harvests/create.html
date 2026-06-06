@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}新增收成 - 种养基地生产档案系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>新增收成记录</h2>
+    <a href="/harvests" class="btn btn-outline">返回列表</a>
+</div>
+<div class="form-card">
+    <form method="post" action="/harvests">
+        <div class="form-group">
+            <label for="planting_id">关联播种</label>
+            <select id="planting_id" name="planting_id" required>
+                {% for p in plantings %}
+                <option value="{{ p.id }}">{{ p.crop_name }} - {{ p.variety }} ({{ p.base_id }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="harvest_date">收获日期</label>
+            <input type="date" id="harvest_date" name="harvest_date" required>
+        </div>
+        <div class="form-group">
+            <label for="quantity">产量</label>
+            <input type="number" id="quantity" name="quantity" step="0.1" required placeholder="如：50000">
+        </div>
+        <div class="form-group">
+            <label for="unit">单位</label>
+            <input type="text" id="unit" name="unit" required placeholder="如：kg">
+        </div>
+        <div class="form-group">
+            <label for="quality_grade">品质等级</label>
+            <select id="quality_grade" name="quality_grade">
+                <option value="优等">优等</option>
+                <option value="一等">一等</option>
+                <option value="二等">二等</option>
+                <option value="合格">合格</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="buyer">买家</label>
+            <input type="text" id="buyer" name="buyer" placeholder="可选填写买家名称">
+        </div>
+        <div class="form-group">
+            <label for="price">单价(元)</label>
+            <input type="number" id="price" name="price" step="0.01" placeholder="可选填写单价">
+        </div>
+        <div class="form-group">
+            <label for="notes">备注</label>
+            <textarea id="notes" name="notes" rows="3" placeholder="可选填写备注信息"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">提交</button>
+    </form>
+</div>
+{% endblock %}

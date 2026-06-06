@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}溯源详情 - 种养基地生产档案系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>溯源详情</h2>
+    <a href="/traceability" class="btn btn-outline">返回查询</a>
+</div>
+<div class="detail-card">
+    <div class="detail-row">
+        <span class="detail-label">溯源码</span>
+        <span class="detail-value"><code>{{ record.code }}</code></span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">产品名称</span>
+        <span class="detail-value">{{ record.product_name }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">产地</span>
+        <span class="detail-value">{{ record.origin }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">收获日期</span>
+        <span class="detail-value">{{ record.harvest_date }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">检验结果</span>
+        <span class="detail-value">
+            {% if record.inspection_result == "合格" %}
+            <span class="badge badge-pass">合格</span>
+            {% else %}
+            <span class="badge badge-fail">{{ record.inspection_result }}</span>
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+{% if planting %}
+<div class="section">
+    <h3>种植信息</h3>
+    <div class="detail-card">
+        <div class="detail-row">
+            <span class="detail-label">作物名称</span>
+            <span class="detail-value">{{ planting.crop_name }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">品种</span>
+            <span class="detail-value">{{ planting.variety }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">种植面积</span>
+            <span class="detail-value">{{ planting.area }} 亩</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">播种日期</span>
+            <span class="detail-value">{{ planting.planting_date }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">基地编号</span>
+            <span class="detail-value">{{ planting.base_id }}</span>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if harvest %}
+<div class="section">
+    <h3>收获信息</h3>
+    <div class="detail-card">
+        <div class="detail-row">
+            <span class="detail-label">收获日期</span>
+            <span class="detail-value">{{ harvest.harvest_date }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">产量</span>
+            <span class="detail-value">{{ harvest.quantity }} {{ harvest.unit }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">品质等级</span>
+            <span class="detail-value">{{ harvest.quality_grade }}</span>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

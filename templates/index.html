@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}种养基地生产档案系统 - 首页{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>种养基地生产档案系统</h1>
+    <p>全面管理农作物播种、施肥用药、收成台账及农产品溯源信息</p>
+    <div class="hero-actions">
+        <a href="/login" class="btn btn-primary">登录系统</a>
+        <a href="/register" class="btn btn-secondary">注册账号</a>
+        <a href="/traceability" class="btn btn-outline">溯源查询</a>
+    </div>
+</div>
+<div class="features">
+    <div class="feature-card">
+        <h3>农作物播种</h3>
+        <p>记录播种品种、面积、日期等关键信息，实现种植全程追踪</p>
+    </div>
+    <div class="feature-card">
+        <h3>施肥用药</h3>
+        <p>详细记录施肥与农药使用情况，保障农产品安全合规</p>
+    </div>
+    <div class="feature-card">
+        <h3>收成台账</h3>
+        <p>管理出栏与收成数据，记录产量、品质及销售信息</p>
+    </div>
+    <div class="feature-card">
+        <h3>产品溯源</h3>
+        <p>一码溯源，从种植到收获全程可追溯，提升产品公信力</p>
+    </div>
+</div>
+{% endblock %}

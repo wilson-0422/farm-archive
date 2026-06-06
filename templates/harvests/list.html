@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}收成台账 - 种养基地生产档案系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>收成台账</h2>
+    <a href="/harvests/new" class="btn btn-primary">新增收成</a>
+</div>
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>收获日期</th>
+            <th>产量</th>
+            <th>品质等级</th>
+            <th>买家</th>
+            <th>单价(元)</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for h in harvests %}
+        <tr>
+            <td>{{ h.id }}</td>
+            <td>{{ h.harvest_date }}</td>
+            <td>{{ h.quantity }} {{ h.unit }}</td>
+            <td>{{ h.quality_grade }}</td>
+            <td>{{ h.buyer | default(value="未填写") }}</td>
+            <td>{{ h.price | default(value="未填写") }}</td>
+            <td><a href="/harvests/{{ h.id }}" class="btn btn-sm btn-outline">查看</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

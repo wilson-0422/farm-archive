@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}新增施肥用药 - 种养基地生产档案系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>新增施肥用药记录</h2>
+    <a href="/chemicals" class="btn btn-outline">返回列表</a>
+</div>
+<div class="form-card">
+    <form method="post" action="/chemicals">
+        <div class="form-group">
+            <label for="planting_id">关联播种</label>
+            <select id="planting_id" name="planting_id" required>
+                {% for p in plantings %}
+                <option value="{{ p.id }}">{{ p.crop_name }} - {{ p.variety }} ({{ p.base_id }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="chem_type">类型</label>
+            <select id="chem_type" name="chem_type">
+                <option value="fertilizer">肥料</option>
+                <option value="pesticide">农药</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="name">名称</label>
+            <input type="text" id="name" name="name" required placeholder="如：复合肥、草甘膦">
+        </div>
+        <div class="form-group">
+            <label for="dosage">用量</label>
+            <input type="text" id="dosage" name="dosage" required placeholder="如：50">
+        </div>
+        <div class="form-group">
+            <label for="unit">单位</label>
+            <input type="text" id="unit" name="unit" required placeholder="如：kg/亩、ml/亩">
+        </div>
+        <div class="form-group">
+            <label for="application_date">施用日期</label>
+            <input type="date" id="application_date" name="application_date" required>
+        </div>
+        <div class="form-group">
+            <label for="operator">操作人</label>
+            <input type="text" id="operator" name="operator" required placeholder="施用操作人姓名">
+        </div>
+        <div class="form-group">
+            <label for="notes">备注</label>
+            <textarea id="notes" name="notes" rows="3" placeholder="可选填写备注信息"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">提交</button>
+    </form>
+</div>
+{% endblock %}

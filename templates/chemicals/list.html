@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}施肥用药记录 - 种养基地生产档案系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>施肥用药记录</h2>
+    <a href="/chemicals/new" class="btn btn-primary">新增记录</a>
+</div>
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>类型</th>
+            <th>名称</th>
+            <th>用量</th>
+            <th>施用日期</th>
+            <th>操作人</th>
+            <th>备注</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in chemicals %}
+        <tr>
+            <td>{{ c.id }}</td>
+            <td>
+                {% if c.chem_type == "fertilizer" %}
+                <span class="badge badge-fertilizer">肥料</span>
+                {% else %}
+                <span class="badge badge-pesticide">农药</span>
+                {% endif %}
+            </td>
+            <td>{{ c.name }}</td>
+            <td>{{ c.dosage }} {{ c.unit }}</td>
+            <td>{{ c.application_date }}</td>
+            <td>{{ c.operator }}</td>
+            <td>{{ c.notes | default(value="无") }}</td>
+            <td><a href="/chemicals/{{ c.id }}" class="btn btn-sm btn-outline">查看</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

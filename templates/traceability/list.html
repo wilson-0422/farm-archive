@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}溯源管理 - 种养基地生产档案系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>溯源记录管理</h2>
+</div>
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>溯源码</th>
+            <th>产品名称</th>
+            <th>产地</th>
+            <th>收获日期</th>
+            <th>检验结果</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in records %}
+        <tr>
+            <td><code>{{ r.code }}</code></td>
+            <td>{{ r.product_name }}</td>
+            <td>{{ r.origin }}</td>
+            <td>{{ r.harvest_date }}</td>
+            <td>
+                {% if r.inspection_result == "合格" %}
+                <span class="badge badge-pass">合格</span>
+                {% else %}
+                <span class="badge badge-fail">{{ r.inspection_result }}</span>
+                {% endif %}
+            </td>
+            <td><a href="/traceability/{{ r.code }}" class="btn btn-sm btn-outline">查看</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

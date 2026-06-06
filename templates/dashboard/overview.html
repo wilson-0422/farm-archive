@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}工作台 - 种养基地生产档案系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>工作台</h2>
+    <span>欢迎，{{ user.real_name }}</span>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-number">{{ planting_count }}</div>
+        <div class="stat-label">播种记录</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ growing_count }}</div>
+        <div class="stat-label">生长中</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ harvested_count }}</div>
+        <div class="stat-label">已收获</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ chemical_count }}</div>
+        <div class="stat-label">施肥用药</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ harvest_count }}</div>
+        <div class="stat-label">收成记录</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ trace_count }}</div>
+        <div class="stat-label">溯源记录</div>
+    </div>
+</div>
+
+<div class="dashboard-grid">
+    <div class="dashboard-section">
+        <h3>最近播种</h3>
+        {% if recent_plantings %}
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>作物</th>
+                    <th>品种</th>
+                    <th>面积</th>
+                    <th>状态</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in recent_plantings %}
+                <tr>
+                    <td>{{ p.crop_name }}</td>
+                    <td>{{ p.variety }}</td>
+                    <td>{{ p.area }} 亩</td>
+                    <td>
+                        {% if p.status == "growing" %}
+                        <span class="badge badge-growing">生长中</span>
+                        {% else %}
+                        <span class="badge badge-harvested">已收获</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="empty-text">暂无播种记录</p>
+        {% endif %}
+    </div>
+
+    <div class="dashboard-section">
+        <h3>最近收成</h3>
+        {% if recent_harvests %}
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>收获日期</th>
+                    <th>产量</th>
+                    <th>品质</th>
+                    <th>买家</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for h in recent_harvests %}
+                <tr>
+                    <td>{{ h.harvest_date }}</td>
+                    <td>{{ h.quantity }} {{ h.unit }}</td>
+                    <td>{{ h.quality_grade }}</td>
+                    <td>{{ h.buyer | default(value="—") }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="empty-text">暂无收成记录</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="quick-actions">
+    <h3>快捷操作</h3>
+    <div class="action-grid">
+        <a href="/plantings/new" class="action-card">新增播种</a>
+        <a href="/chemicals/new" class="action-card">新增施肥用药</a>
+        <a href="/harvests/new" class="action-card">新增收成</a>
+        <a href="/traceability" class="action-card">溯源查询</a>
+    </div>
+</div>
+{% endblock %}
